@@ -1,0 +1,30 @@
+name: DPStaff
+author: Carbonate
+version: 1.0
+main: me.carbonate.dpstaff.DPStaff
+description: Staff Functions
+commands:
+  dpstaff:
+    aliases: [dpss]
+    description: Main Command
+  freeze:
+    aliases: [dpsf]
+    description: Freezes Player
+  staff:
+    aliases: [dpssm]
+    description: Puts player into staff mode
+permissions:
+  dpstaff.use:
+    default: op
+  dpstaff.freeze:
+    default: op
+  dpstaff.staff:
+    default: op
+  dpstaff.bypass:
+    default: op
+  dpstaff.all:
+    default: op
+    children:
+      dpstaff.freeze: true
+      dpstaff.use: true
+      dpstaff.staff: true

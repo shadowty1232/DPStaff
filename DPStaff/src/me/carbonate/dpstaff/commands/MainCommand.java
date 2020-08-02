@@ -9,13 +9,14 @@ import me.carbonate.dpstaff.DPStaff;
 import me.carbonate.dpstaff.Utils;
 
 public class MainCommand implements CommandExecutor {
-	
+
 	public DPStaff plugin;
+
 	public MainCommand(DPStaff plugin) {
 		this.plugin = plugin;
 		plugin.getCommand("dpstaff").setExecutor(this);
 	}
-	
+
 	public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args) {
 		Player p = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("dpstaff")) {
@@ -34,7 +35,7 @@ public class MainCommand implements CommandExecutor {
 				return true;
 			}
 		}
-		
+
 		return false;
 	}
 
