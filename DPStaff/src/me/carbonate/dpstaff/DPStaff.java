@@ -17,6 +17,7 @@ import me.carbonate.dpstaff.events.EntityDamage;
 import me.carbonate.dpstaff.events.Interact;
 import me.carbonate.dpstaff.events.InvClick;
 import me.carbonate.dpstaff.events.MuteGUI;
+import me.carbonate.dpstaff.events.PlayerChat;
 import me.carbonate.dpstaff.events.PlayerMove;
 
 public class DPStaff extends JavaPlugin {
@@ -47,6 +48,7 @@ public class DPStaff extends JavaPlugin {
 		new Interact(this);
 		new BanGUI(this);
 		new MuteGUI(this);
+		new PlayerChat(this);
 	}
 
 }

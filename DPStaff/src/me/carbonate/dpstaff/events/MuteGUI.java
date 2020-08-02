@@ -1,5 +1,7 @@
 package me.carbonate.dpstaff.events;
 
+import java.util.ArrayList;
+
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -14,6 +16,8 @@ public class MuteGUI implements Listener {
 	public static Inventory inv;
 	public static String inventory_name;
 	public static int inv_rows = 6 * 9;
+	
+	public static ArrayList<Player> mutedPlayer = new ArrayList<Player>();
 	
 	public static DPStaff plugin;
 	public MuteGUI(DPStaff plugin) {
@@ -59,31 +63,16 @@ public class MuteGUI implements Listener {
 		Utils.createItemByte(inv, 160, 7, 1, 54, "&7");
 		
 		// Actual Buttons
-		Utils.createItem(inv, 331, 1, 21, "&c&lMute", "&730 Minutes");
-		Utils.createItem(inv, 331, 1, 23, "&c&lMute", "&71 Hour");
-		Utils.createItem(inv, 331, 1, 25, "&c&lMute", "&75 Hours");
+		Utils.createItem(inv, 351, 1, 23, "&a&lMute");
 		
 		toReturn.setContents(inv.getContents());
 		return toReturn;	
 	}
 	
-	public static void clicked(Player p, int slot, ItemStack clicked, Inventory inv, Inventory cinv) {		
-		if (clicked.getItemMeta().getLore().contains("&71 Day")) {
-			Player target = Interact.punishedPlayer.get(p);
-			String targetName = target.getName();
-			p.chat("/mute " + targetName + " 1D");
-			Interact.punishedPlayer.clear();
-		}
-		if (clicked.getItemMeta().getLore().contains("&77 Day")) {
-			Player target = Interact.punishedPlayer.get(p);
-			String targetName = target.getName();
-			p.chat("/mute " + targetName + " 7D");
-			Interact.punishedPlayer.clear();
-		}
-		if (clicked.getItemMeta().getLore().contains("&7Lifetime")) {
-			Player target = Interact.punishedPlayer.get(p);
-			String targetName = target.getName();
-			p.chat("/mute " + targetName);
+	
+	public static void clicked(Player p, int slot, ItemStack clicked, Inventory inv, Inventory cinv) {
+		if (clicked.getItemMeta().getDisplayName().equalsIgnoreCase(Utils.Chat("&a&lMute"))) {
+			mutedPlayer.add(Interact.punishedPlayer.get(p));
 			Interact.punishedPlayer.clear();
 		}
 	}

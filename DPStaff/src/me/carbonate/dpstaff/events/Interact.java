@@ -20,6 +20,7 @@ public class Interact implements Listener {
 	}
 
 	public static HashMap<Player, Player> punishedPlayer = new HashMap<Player, Player>();
+	
 
 	@EventHandler
 	public void onUse(PlayerInteractAtEntityEvent e) {
