@@ -11,7 +11,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import me.carbonate.dpstaff.commands.Freeze;
 import me.carbonate.dpstaff.commands.MainCommand;
 import me.carbonate.dpstaff.commands.Staff;
+import me.carbonate.dpstaff.events.BanGUI;
+import me.carbonate.dpstaff.events.BlockBreak;
+import me.carbonate.dpstaff.events.EntityDamage;
+import me.carbonate.dpstaff.events.Interact;
 import me.carbonate.dpstaff.events.InvClick;
+import me.carbonate.dpstaff.events.MuteGUI;
 import me.carbonate.dpstaff.events.PlayerMove;
 
 public class DPStaff extends JavaPlugin {
@@ -23,6 +28,8 @@ public class DPStaff extends JavaPlugin {
 	public void onEnable() {
 		registerCommands();
 		registerEvents();
+		BanGUI.initialize();
+		MuteGUI.initialize();
 		getLogger().info("By Carbonate");
 	}
 	
@@ -35,6 +42,11 @@ public class DPStaff extends JavaPlugin {
 	public void registerEvents() {
 		new PlayerMove(this);
 		new InvClick(this);
+		new EntityDamage(this);
+		new BlockBreak(this);
+		new Interact(this);
+		new BanGUI(this);
+		new MuteGUI(this);
 	}
 
 }

@@ -19,15 +19,28 @@ public class InvClick implements Listener {
 
 	@EventHandler
 	public void onClick(InventoryClickEvent e) {
-		Player p = (Player) e.getWhoClicked();
-		if (!p.hasPermission("dpstaff.bypass")) {
-			if (plugin.staffMode.contains(p)) {
-				e.setCancelled(true);
-			} else {
+		String title = e.getInventory().getTitle();
+		if (title.equals(BanGUI.inventory_name)) {
+			e.setCancelled(true);
+			if (e.getCurrentItem() == null) {
 				return;
 			}
-		} else {
-			return;
+			if (title.equals(BanGUI.inventory_name)) {
+				BanGUI.clicked((Player) e.getWhoClicked(), e.getSlot(), e.getCurrentItem(), e.getInventory(),
+						e.getClickedInventory());
+			}
+
+		}
+		if (title.equals(MuteGUI.inventory_name)) {
+			e.setCancelled(true);
+			if (e.getCurrentItem() == null) {
+				return;
+			}
+			if (title.equals(MuteGUI.inventory_name)) {
+				MuteGUI.clicked((Player) e.getWhoClicked(), e.getSlot(), e.getCurrentItem(), e.getInventory(),
+						e.getClickedInventory());
+			}
+
 		}
 	}
 
