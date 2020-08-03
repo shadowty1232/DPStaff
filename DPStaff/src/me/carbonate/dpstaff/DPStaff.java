@@ -22,7 +22,7 @@ import me.carbonate.dpstaff.events.PlayerMove;
 
 public class DPStaff extends JavaPlugin {
 	
-	public HashMap<Player, Location> frozenPlayer = new HashMap<Player, Location>();
+	public static HashMap<Player, Location> frozenPlayer = new HashMap<Player, Location>();
 	public ArrayList<Player> staffMode = new ArrayList<Player>();
 	public HashMap<Player, ItemStack[][]> inv = new HashMap<Player, ItemStack[][]>();
 	
@@ -49,6 +49,17 @@ public class DPStaff extends JavaPlugin {
 		new BanGUI(this);
 		new MuteGUI(this);
 		new PlayerChat(this);
+	}
+	
+	public static boolean FreezePlayer(Player target) {
+		if (frozenPlayer.containsKey(target)) {
+			frozenPlayer.remove(target);
+			return false;
+		} else {
+			frozenPlayer.put(target, target.getLocation().clone());
+			target.sendMessage(Utils.Chat("&cYou have been frozen."));
+			return true;
+		}
 	}
 
 }

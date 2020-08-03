@@ -18,6 +18,10 @@ public class MainCommand implements CommandExecutor {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args) {
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(Utils.Chat("&cOnly players may execute this command."));
+			return false;
+		}
 		Player p = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("dpstaff")) {
 			if (sender.hasPermission("dpstaff.use")) {

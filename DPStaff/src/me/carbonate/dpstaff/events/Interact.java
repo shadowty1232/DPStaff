@@ -9,6 +9,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 
 import me.carbonate.dpstaff.DPStaff;
+import me.carbonate.dpstaff.Utils;
 
 public class Interact implements Listener {
 
@@ -20,10 +21,12 @@ public class Interact implements Listener {
 	}
 
 	public static HashMap<Player, Player> punishedPlayer = new HashMap<Player, Player>();
-	
 
 	@EventHandler
 	public void onUse(PlayerInteractAtEntityEvent e) {
+		if (!(e.getRightClicked() instanceof Player)) {
+			return;
+		}
 		Player p = (Player) e.getPlayer();
 		Player target = (Player) e.getRightClicked();
 		punishedPlayer.put(p, target);
@@ -32,6 +35,14 @@ public class Interact implements Listener {
 		}
 		if (p.getItemInHand().getItemMeta().getDisplayName().contains("Mute")) {
 			p.openInventory(MuteGUI.MGUI(p));
+		}
+		if (p.getItemInHand().getItemMeta().getDisplayName().contains("Freeze")) {
+			DPStaff.FreezePlayer(target);
+			if (DPStaff.frozenPlayer.containsKey(target)) {
+				p.sendMessage(Utils.Chat("&bYou have frozen &9" + target.getName()));
+			} else {
+				p.sendMessage(Utils.Chat("&bYou have thawed &9" + target.getName()));
+			}
 		}
 
 	}

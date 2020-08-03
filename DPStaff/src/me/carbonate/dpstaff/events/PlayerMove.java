@@ -17,12 +17,12 @@ public class PlayerMove implements Listener {
 	
 	@EventHandler
 	public void onMove(PlayerMoveEvent e) {
-		if (!plugin.frozenPlayer.containsKey(e.getPlayer())) {
+		if (!DPStaff.frozenPlayer.containsKey(e.getPlayer())) {
 			return;
 		}
 		
 		if (e.getFrom().getBlockX() != e.getTo().getBlockX() || e.getFrom().getBlockZ() != e.getTo().getBlockZ()) {
-			e.getPlayer().teleport(plugin.frozenPlayer.get(e.getPlayer()));
+			e.getPlayer().teleport(DPStaff.frozenPlayer.get(e.getPlayer()));
 		}
 	}
 	

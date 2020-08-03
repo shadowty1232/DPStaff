@@ -16,10 +16,13 @@ public class Freeze implements CommandExecutor {
 		this.plugin = plugin;
 		plugin.getCommand("freeze").setExecutor(this);
 	}
-
 	
 	@SuppressWarnings("deprecation")
 	public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args) {
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(Utils.Chat("&cOnly players may execute this command."));
+			return false;
+		}
 		Player p = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("freeze")) {
 			if (p.hasPermission("dpstaff.freeze")) {
@@ -28,17 +31,18 @@ public class Freeze implements CommandExecutor {
 				switch (s) {
 				case 0:
 					p.sendMessage(Utils.Chat("&cUsage: /freeze <player>"));
-
+					break;
 				case 1:
 					String targetName = args[0];
 					if (Bukkit.getOfflinePlayer(targetName).getPlayer() != null) {
 						Player target = Bukkit.getPlayer(targetName);
-						if (plugin.frozenPlayer.containsKey(target)) {
-							plugin.frozenPlayer.remove(target);
+						if (DPStaff.FreezePlayer(target) == true) {
+							p.sendMessage(Utils.Chat("&bYou have frozen &9" + targetName));
 						} else {
-							plugin.frozenPlayer.put(target, target.getLocation().clone());
+							p.sendMessage(Utils.Chat("&bYou have unfrozen &9" + targetName));
 						}
 					}
+					break;
 				}
 			}
 		}

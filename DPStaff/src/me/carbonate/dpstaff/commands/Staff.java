@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import me.carbonate.dpstaff.DPStaff;
+import me.carbonate.dpstaff.Utils;
 import me.carbonate.dpstaff.items.StaffItems;
 
 public class Staff implements CommandExecutor {
@@ -20,11 +21,16 @@ public class Staff implements CommandExecutor {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String string, String[] args) {
+		if (!(sender instanceof Player)) {
+			sender.sendMessage(Utils.Chat("&cOnly players may execute this command."));
+			return false;
+		}
 		Player p = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("staff")) {
 			if (p.hasPermission("dpstaff.staff.use")) {
 				if (!plugin.staffMode.contains(p)) {
-					if (p.getGameMode() == GameMode.SURVIVAL || p.getGameMode() == GameMode.ADVENTURE || p.getGameMode() == GameMode.SPECTATOR) {
+					if (p.getGameMode() == GameMode.SURVIVAL || p.getGameMode() == GameMode.ADVENTURE
+							|| p.getGameMode() == GameMode.SPECTATOR) {
 						p.setGameMode(GameMode.CREATIVE);
 						ItemStack[][] store = new ItemStack[2][1];
 						store[0] = p.getInventory().getContents();
@@ -35,6 +41,8 @@ public class Staff implements CommandExecutor {
 						p.getInventory().setArmorContents(null);
 						StaffItems.giveStaffItems(p);
 						p.updateInventory();
+					} else {
+						p.sendMessage(Utils.Chat("&cYou got to be in survival to execute this command."));
 					}
 				} else {
 					p.setGameMode(GameMode.SURVIVAL);
@@ -44,7 +52,6 @@ public class Staff implements CommandExecutor {
 					p.getInventory().setArmorContents(plugin.inv.get(p)[1]);
 					p.updateInventory();
 					plugin.inv.clear();
-					
 				}
 			}
 		}
